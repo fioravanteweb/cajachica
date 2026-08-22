@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+    <title>Caja Chica · Defensoría Oficial Civil y Comercial 6</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0b2a4a;
+            --primary-light: #1e4a7a;
+            --primary-lighter: #e6f0fa;
+            --secondary: #f0f4f8;
+            --accent: #d4a843;
+            --accent-hover: #b8922f;
+            --success: #1e8b4a;
+            --success-bg: #e4f5eb;
+            --danger: #c0392b;
+            --danger-bg: #fde8e5;
+            --warning: #d97706;
+            --warning-bg: #fef3d7;
+            --gray: #6c7a8a;
+            --gray-light: #dce2e8;
+            --white: #ffffff;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --transition: 0.25s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font);
+            background: #f8fafc;
+            color: #1a2634;
+            line-height: 1.5;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* ===== HEADER ===== */
+        .app-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.25rem 1.75rem;
+            border-radius: var(--radius);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem 1.5rem;
+            box-shadow: 0 4px 16px rgba(11, 42, 74, 0.25);
+        }
+
+        .header-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .header-brand .titulo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .header-brand .subtitulo {
+            font-size: 0.85rem;
+            font-weight: 400;
+            opacity: 0.85;
+            letter-spacing: 0.01em;
+        }
+
+        .header-badge {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            flex-shrink: 0;
+        }
+
+        .header-badge i {
+            color: var(--accent);
+        }
+        
+        /* Enlace del instructivo en el header */
+        .header-badge a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.2s;
+        }
+        .header-badge a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* ===== RESUMEN ===== */
+        .resumen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .resumen-card {
+            background: var(--white);
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s;
+        }
+
+        .resumen-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .resumen-card .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--gray);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .resumen-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 0.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .resumen-card .value.positive {
+            color: var(--success);
+        }
+
+        .resumen-card .value.negative {
+            color: var(--danger);
+        }
+
+        .resumen-card .value.neutral {
+            color: var(--primary);
+        }
+
+        .resumen-card .sub {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.2rem;
+        }
+
+        /* ===== BOTONES ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            text-decoration: none;
+            background: var(--gray-light);
+            color: var(--primary);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            font-family: var(--font);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(11, 42, 74, 0.2);
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+            box-shadow: 0 6px 18px rgba(11, 42, 74, 0.25);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 139, 74, 0.2);
+        }
+        .btn-success:hover {
+            background: #167a40;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #a93226;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-light);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--secondary);
+            border-color: var(--gray);
+        }
+
+        .btn-sm {
+            padding: 0.35rem 1rem;
+            font-size: 0.8rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ===== FORMULARIO ===== */
+        .form-card {
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .form-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--primary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.6rem 0.9rem;
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            font-size: 0.95rem;
+            background: var(--white);
+            transition: border 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(30, 74, 122, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .form-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-actions .btn {
+            flex: 1 1 auto;
+            min-width: 120px;
+        }
+
+        /* ===== TABLA ===== */
+        .table-wrapper {
+            background: var(--white);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            padding: 0 0 0.25rem 0;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            overflow-x: auto;
+        }
+
+        .table-wrapper .table-header {
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .table-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .table-header .badge-count {
+            background: var(--primary-lighter);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 700px;
+        }
+
+        table th {
+            text-align: left;
+            padding: 0.9rem 1rem;
+            background: var(--secondary);
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--gray-light);
+            vertical-align: middle;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        table tr:hover td {
+            background: #fafcfd;
+        }
+
+        .text-muted {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .text-nowrap {
+            white-space: nowrap;
+        }
+
+        .actions-cell {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-icon {
+            padding: 0.3rem 0.7rem;
+            font-size: 0.8rem;
+            border-radius: 30px;
+            background: transparent;
+            border: 1px solid var(--gray-light);
+            color: var(--gray);
+            transition: 0.2s;
+            cursor: pointer;
+            font-family: var(--font);
+        }
+
+        .btn-icon:hover {
+            background: var(--secondary);
+            border-color: var(--gray);
+        }
+
+        .btn-icon.danger:hover {
+            background: var(--danger-bg);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .btn-icon.pdf-btn {
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+        .btn-icon.pdf-btn:hover {
+            background: var(--primary-lighter);
+            border-color: var(--primary);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            color: var(--gray);
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.3;
+        }
+
+        /* ===== PAGINACIÓN ===== */
+        .pagination-wrapper {
+            padding: 0.8rem 1.5rem 1.2rem 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .pagination-info {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-controls .btn {
+            min-width: 2.5rem;
+            justify-content: center;
+            padding: 0.3rem 0.5rem;
+            font-size: 0.85rem;
+            background: transparent;
+            border: 2px solid transparent;
+            color: var(--gray);
+        }
+
+        .pagination-controls .btn.active-page {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            font-weight: 700;
+        }
+
+        .pagination-controls .btn:hover:not(.active-page) {
+            background: var(--secondary);
+            border-color: var(--gray-light);
+        }
+
+        .pagination-controls .btn:disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--white);
+            border-radius: var(--radius);
+            max-width: 520px;
+            width: 100%;
+            padding: 2rem;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-box h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .modal-box p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .modal-actions .btn {
+            flex: 1 1 auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== AJUSTE ===== */
+        .ajuste-info {
+            background: var(--primary-lighter);
+            border-radius: var(--radius-sm);
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.5rem;
+            margin-top: 0.5rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .ajuste-info .estado {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .ajuste-info .estado.ok {
+            color: var(--success);
+        }
+        .ajuste-info .estado.falta {
+            color: var(--warning);
+        }
+        .ajuste-info .estado.sobra {
+            color: var(--danger);
+        }
+
+        /* ===== ÁREA DE IMPRESIÓN (pantalla) ===== */
+        #printArea {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            padding: 2rem;
+            overflow-y: auto;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #printArea .print-container {
+            background: white;
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        #printArea .print-close-btn {
+            position: sticky;
+            top: 0;
+            float: right;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.4rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font);
+            margin-bottom: 1rem;
+            z-index: 10;
+        }
+        #printArea .print-close-btn:hover {
+            background: #a93226;
+        }
+
+        #printArea .print-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        #printArea .print-header h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        #printArea .print-header p {
+            margin: 4px 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        #printArea table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        #printArea table th,
+        #printArea table td {
+            border: 1px solid #ccc;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        #printArea table th {
+            background: var(--secondary);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        #printArea .print-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #888;
+            font-size: 0.8rem;
+            border-top: 1px solid var(--gray-light);
+            padding-top: 1rem;
+        }
+
+        /* ===== IMPRESIÓN (papel) ===== */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printArea,
+            #printArea * {
+                visibility: visible;
+            }
+            #printArea {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: auto;
+                background: white;
+                padding: 0;
+                backdrop-filter: none;
+                overflow: visible;
+            }
+            #printArea .print-container {
+                box-shadow: none;
+                padding: 1.5rem;
+                border-radius: 0;
+                max-width: 100%;
+            }
+            #printArea .print-close-btn {
+                display: none !important;
+            }
+            #printArea .print-footer {
+                page-break-after: avoid;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            .app-header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .header-brand {
+                align-items: center;
+            }
+
+            .header-brand .titulo {
+                font-size: 1.3rem;
+            }
+
+            .header-brand .subtitulo {
+                font-size: 0.8rem;
+            }
+
+            .header-badge {
+                justify-content: center;
+            }
+
+            .resumen-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions .btn {
+                flex: 1 1 100%;
+            }
+
+            .table-wrapper {
+                padding: 0;
+            }
+
+            .table-wrapper .table-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+
+            table {
+                font-size: 0.8rem;
+                min-width: 100%;
+            }
+
+            table thead {
+                display: none;
+            }
+
+            table,
+            table tbody,
+            table tr,
+            table td {
+                display: block;
+                width: 100%;
+            }
+
+            table tr {
+                padding: 0.75rem 1rem;
+                border-bottom: 2px solid var(--gray-light);
+                background: var(--white);
+            }
+
+            table tr:last-child {
+                border-bottom: none;
+            }
+
+            table td {
+                padding: 0.4rem 0;
+                border-bottom: none;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--gray);
+                font-size: 0.65rem;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                margin-right: 1rem;
+            }
+
+            table td:last-child {
+                border-bottom: none;
+            }
+
+            .actions-cell {
+                justify-content: flex-end;
+            }
+
+            .modal-box {
+                padding: 1.5rem;
+                margin: 0.5rem;
+            }
+
+            .pagination-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+
+            .pagination-controls {
+                justify-content: center;
+            }
+
+            #printArea {
+                padding: 1rem;
+            }
+            #printArea .print-container {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .resumen-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                font-size: 0.8rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        /* utilidades */
+        .mt-1 {
+            margin-top: 0.75rem;
+        }
+        .mb-1 {
+            margin-bottom: 0.75rem;
+        }
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .gap-1 {
+            gap: 0.75rem;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .w-full {
+            width: 100%;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* scroll suave */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-light);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray);
+        }
+
+        /* Estado de subida PDF */
+        .pdf-upload-status {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.2rem;
+        }
+        .pdf-upload-status.success {
+            color: var(--success);
+        }
+        .pdf-upload-status.error {
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-wrapper" id="appContainer">
+
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="header-brand">
+                <div class="titulo">Caja Chica</div>
+                <div class="subtitulo">Defensoría Oficial Civil y Comercial N°6 · Ministerio Público de Misiones</div>
+            </div>
+            <div class="header-badge">
+                <a href="https://raw.githubusercontent.com/fioravanteweb/cajachica/4034ece70f6c21afe0ef82d7e4a1cdf5e516b29c/Instructivo2026.pdf" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-file-pdf"></i> Caja Chica 2026 · Instructivo vigente
+                </a>
+            </div>
+        </header>
+
+        <!-- RESUMEN -->
+        <section class="resumen-grid">
+            <div class="resumen-card">
+                <div class="label"><i class="fas fa-wallet"></i> Monto inicial</div>
+                <div class="value neutral" id="montoInicialDisplay">$ 0</div>
+                <div class="sub">
+                    <button class="btn btn-outline btn-sm" id="btnConfigurarMonto">
+                        <i class="fas fa-pen"></i> Ajustar
+                    </button>
+                </div>
+            </div>
+            <div class="resumen-card">
+                <div class="label"><i class="fas fa-receipt"></i> Total gastado</div>
+                <div class="value" id="totalGastadoDisplay">$ 0</div>
+                <div class="sub" id="gastosCount">0 comprobantes</div>
+            </div>
+            <div class="resumen-card">
+                <div class="label"><i class="fas fa-coins"></i> Saldo disponible</div>
+                <div class="value positive" id="saldoDisplay">$ 0</div>
+                <div class="sub" id="estadoAjuste">✅ Ajustado a cero</div>
+            </div>
+        </section>
+
+        <!-- FORMULARIO -->
+        <section class="form-card" id="formulario">
+            <h3><i class="fas fa-plus-circle" style="color: var(--accent);"></i> Registrar gasto</h3>
+            <form id="gastoForm" autocomplete="off">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="fecha">Fecha</label>
+                        <input type="date" id="fecha" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="proveedor">Proveedor</label>
+                        <input type="text" id="proveedor" placeholder="Razón social" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="concepto">Concepto / Detalle</label>
+                        <input type="text" id="concepto" placeholder="Ej: reparación de equipo" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="monto">Monto ($)</label>
+                        <input type="number" id="monto" placeholder="0.00" step="0.01" min="0.01" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoComprobante">Tipo comprobante</label>
+                        <select id="tipoComprobante">
+                            <option value="B">Factura B</option>
+                            <option value="C">Factura C</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="numeroComprobante">Número comprobante</label>
+                        <input type="text" id="numeroComprobante" placeholder="0001-00000000" />
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="observaciones">Observaciones (opcional)</label>
+                        <textarea id="observaciones" placeholder="Ej: cumple con requisitos del instructivo"></textarea>
+                    </div>
+                    <!-- PDF -->
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="pdfFile">Comprobante PDF (opcional)</label>
+                        <input type="file" id="pdfFile" accept=".pdf" />
+                        <div id="pdfUploadStatus" class="pdf-upload-status"></div>
+                        <input type="hidden" id="pdfUrl" value="" />
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="btnGuardarGasto">
+                            <i class="fas fa-save"></i> Guardar gasto
+                        </button>
+                        <button type="reset" class="btn btn-outline">
+                            <i class="fas fa-undo-alt"></i> Limpiar
+                        </button>
+                        <span style="font-size:0.75rem; color: var(--gray); align-self:center; margin-left:auto;">
+                            <i class="fas fa-info-circle"></i> Montos ≥ $30.000 requieren Form. SR-344
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- TABLA CON PAGINACIÓN -->
+        <section class="table-wrapper">
+            <div class="table-header">
+                <h3>
+                    <i class="fas fa-list-ul"></i> Movimientos
+                    <span class="badge-count" id="totalRegistros">0</span>
+                </h3>
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                    <button class="btn btn-outline btn-sm" id="btnImprimirTabla">
+                        <i class="fas fa-print"></i> Imprimir
+                    </button>
+                    <button class="btn btn-outline btn-sm" id="btnEliminarTodos">
+                        <i class="fas fa-trash-alt"></i> Vaciar
+                    </button>
+                    <button class="btn btn-success btn-sm" id="btnAjustarCaja">
+                        <i class="fas fa-check-double"></i> Verificar ajuste
+                    </button>
+                </div>
+            </div>
+            <div style="overflow-x:auto;">
+                <table id="tablaGastos">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
+                            <th>Concepto</th>
+                            <th>Monto</th>
+                            <th>Comprobante</th>
+                            <th>PDF</th>
+                            <th style="width:80px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyGastos">
+                        <!-- filas generadas por JS -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="emptyState" class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <p>No hay gastos registrados.<br />Comienza agregando uno.</p>
+            </div>
+
+            <!-- PAGINACIÓN -->
+            <div id="paginationContainer" class="pagination-wrapper hidden">
+                <div class="pagination-info" id="paginacionInfo">
+                    Mostrando <span id="registroDesde">0</span> - <span id="registroHasta">0</span> de <span id="totalRegistrosPaginados">0</span>
+                </div>
+                <div class="pagination-controls" id="paginacionControles">
+                    <!-- Botones generados por JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- AVISO DE AJUSTE -->
+        <div id="ajusteInfo" class="ajuste-info hidden">
+            <div class="estado" id="estadoTexto">✅ Caja ajustada a cero</div>
+            <div style="font-size:0.9rem; color: var(--gray);" id="detalleAjuste"></div>
+        </div>
+
+    </div>
+
+    <!-- ===== ÁREA DE IMPRESIÓN (flotante) ===== -->
+    <div id="printArea">
+        <div class="print-container">
+            <button class="print-close-btn" id="btnCerrarPrint"><i class="fas fa-times"></i> Cerrar vista</button>
+            <div id="printContent">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODALES ===== -->
+
+    <!-- Modal de confirmación genérico -->
+    <div class="modal-overlay" id="modalConfirmacion">
+        <div class="modal-box">
+            <h2 id="modalTitulo">Confirmar</h2>
+            <p id="modalMensaje">¿Estás seguro?</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="modalCancelar">Cancelar</button>
+                <button class="btn btn-danger" id="modalConfirmar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para configurar monto inicial -->
+    <div class="modal-overlay" id="modalConfigMonto">
+        <div class="modal-box">
+            <h2><i class="fas fa-wallet"></i> Configurar monto inicial</h2>
+            <p>Ingresa el importe total de la Caja Chica (según Resolución autorizante).</p>
+            <div class="form-group">
+                <label for="inputMontoInicial">Monto ($)</label>
+                <input type="number" id="inputMontoInicial" step="0.01" min="0" placeholder="350000" />
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="btnCancelarMonto">Cancelar</button>
+                <button class="btn btn-primary" id="btnGuardarMonto">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de ajuste -->
+    <div class="modal-overlay" id="modalAjuste">
+        <div class="modal-box">
+            <h2><i class="fas fa-calculator"></i> Verificación de ajuste</h2>
+            <div id="contenidoAjuste">
+                <p><strong>Monto inicial:</strong> <span id="ajusteInicial"></span></p>
+                <p><strong>Total gastado:</strong> <span id="ajusteGastado"></span></p>
+                <p><strong>Diferencia:</strong> <span id="ajusteDiferencia"></span></p>
+                <div id="mensajeAjuste" style="margin-top:1rem; padding:0.75rem; border-radius:8px; background: var(--secondary);">
+                    <!-- dinámico -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="btnCerrarAjuste">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            // ================================================================
+            // CONFIGURACIÓN DE GITHUB (REEMPLAZA CON TUS DATOS)
+            // ================================================================
+            const GITHUB_OWNER = 'fioravanteweb'; // Ej: 'juanperez'
+            const GITHUB_REPO = 'cajachica'; // Ej: 'caja-chica-pdfs'
+            const GITHUB_BRANCH = 'main'; // Rama donde subir
+            const GITHUB_PATH = 'comprobantes/'; // Carpeta dentro del repo (debe existir)
+            const GITHUB_TOKEN = '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'; // Token con permisos repo
+
+            // ================================================================
+            // MODELO
+            // ================================================================
+            let gastos = [];
+            let montoInicial = 350000;
+            let editandoId = null;
+            let paginaActual = 1;
+            const registrosPorPagina = 10;
+
+            // ===== DOM =====
+            const $ = (sel) => document.querySelector(sel);
+            const $$ = (sel) => document.querySelectorAll(sel);
+
+            const form = $('#gastoForm');
+            const tbody = $('#tbodyGastos');
+            const emptyState = $('#emptyState');
+            const totalRegistros = $('#totalRegistros');
+            const montoInicialDisplay = $('#montoInicialDisplay');
+            const totalGastadoDisplay = $('#totalGastadoDisplay');
+            const saldoDisplay = $('#saldoDisplay');
+            const estadoAjuste = $('#estadoAjuste');
+            const gastosCount = $('#gastosCount');
+            const ajusteInfo = $('#ajusteInfo');
+            const estadoTexto = $('#estadoTexto');
+            const detalleAjuste = $('#detalleAjuste');
+
+            const paginationContainer = $('#paginationContainer');
+            const paginacionInfo = $('#paginacionInfo');
+            const registroDesde = $('#registroDesde');
+            const registroHasta = $('#registroHasta');
+            const totalRegistrosPaginados = $('#totalRegistrosPaginados');
+            const paginacionControles = $('#paginacionControles');
+
+            const inputFecha = $('#fecha');
+            const inputProveedor = $('#proveedor');
+            const inputConcepto = $('#concepto');
+            const inputMonto = $('#monto');
+            const inputTipo = $('#tipoComprobante');
+            const inputNumero = $('#numeroComprobante');
+            const inputObservaciones = $('#observaciones');
+            const inputPdfFile = $('#pdfFile');
+            const inputPdfUrl = $('#pdfUrl');
+            const pdfUploadStatus = $('#pdfUploadStatus');
+
+            const btnGuardar = $('#btnGuardarGasto');
+            const btnConfigMonto = $('#btnConfigurarMonto');
+            const btnEliminarTodos = $('#btnEliminarTodos');
+            const btnAjustarCaja = $('#btnAjustarCaja');
+            const btnImprimirTabla = $('#btnImprimirTabla');
+
+            // modales
+            const modalConfirmacion = $('#modalConfirmacion');
+            const modalTitulo = $('#modalTitulo');
+            const modalMensaje = $('#modalMensaje');
+            const modalCancelar = $('#modalCancelar');
+            const modalConfirmar = $('#modalConfirmar');
+
+            const modalConfigMonto = $('#modalConfigMonto');
+            const inputMontoInicial = $('#inputMontoInicial');
+            const btnCancelarMonto = $('#btnCancelarMonto');
+            const btnGuardarMonto = $('#btnGuardarMonto');
+
+            const modalAjuste = $('#modalAjuste');
+            const ajusteInicial = $('#ajusteInicial');
+            const ajusteGastado = $('#ajusteGastado');
+            const ajusteDiferencia = $('#ajusteDiferencia');
+            const mensajeAjuste = $('#mensajeAjuste');
+            const btnCerrarAjuste = $('#btnCerrarAjuste');
+
+            // Área de impresión
+            const printArea = $('#printArea');
+            const printContent = $('#printContent');
+            const btnCerrarPrint = $('#btnCerrarPrint');
+
+            // ===== UTILS =====
+            function formatearMoneda(valor) {
+                return '$ ' + Number(valor).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            function formatearFecha(fechaStr) {
+                if (!fechaStr) return '';
+                const partes = fechaStr.split('-');
+                return `${partes[2]}/${partes[1]}/${partes[0]}`;
+            }
+
+            function generarId() {
+                return Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
+            }
+
+            function parseMonto(val) {
+                return parseFloat(val) || 0;
+            }
+
+            function escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            function obtenerFechaHoraActual() {
+                const now = new Date();
+                return now.toLocaleString('es-AR', { dateStyle: 'full', timeStyle: 'short' });
+            }
+
+            // ===== PERSISTENCIA =====
+            function guardarDatos() {
+                const data = {
+                    gastos: gastos,
+                    montoInicial: montoInicial
+                };
+                localStorage.setItem('cajaChicaData', JSON.stringify(data));
+            }
+
+            function cargarDatos() {
+                const raw = localStorage.getItem('cajaChicaData');
+                if (raw) {
+                    try {
+                        const data = JSON.parse(raw);
+                        gastos = data.gastos || [];
+                        montoInicial = data.montoInicial ?? 350000;
+                    } catch (e) {
+                        gastos = [];
+                        montoInicial = 350000;
+                    }
+                } else {
+                    gastos = [];
+                    montoInicial = 350000;
+                }
+                gastos.forEach(g => {
+                    if (!g.fecha) g.fecha = new Date().toISOString().split('T')[0];
+                });
+                renderizarTodo();
+            }
+
+            // ===== SUBIDA A GITHUB =====
+            function subirPDFaGitHub(file) {
+                if (!GITHUB_OWNER || !GITHUB_REPO || !GITHUB_TOKEN) {
+                    pdfUploadStatus.textContent = '⚠️ Configura GitHub (owner, repo, token)';
+                    pdfUploadStatus.className = 'pdf-upload-status error';
+                    return Promise.reject('GitHub no configurado');
+                }
+
+                // Leer el archivo como base64
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const base64 = e.target.result.split(',')[1];
+                        resolve(base64);
+                    };
+                    reader.onerror = function(err) {
+                        reject(err);
+                    };
+                    reader.readAsDataURL(file);
+                }).then(base64 => {
+                    // Generar nombre único
+                    const timestamp = Date.now();
+                    const nombreArchivo = `comprobante_${timestamp}.pdf`;
+                    const pathCompleto = GITHUB_PATH + nombreArchivo;
+
+                    pdfUploadStatus.textContent = '⏳ Subiendo a GitHub...';
+                    pdfUploadStatus.className = 'pdf-upload-status';
+
+                    // Construir payload para la API de GitHub
+                    const payload = {
+                        message: `Subir comprobante ${nombreArchivo}`,
+                        content: base64,
+                        branch: GITHUB_BRANCH
+                    };
+
+                    const url =
+                        `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${pathCompleto}`;
+
+                    return fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${GITHUB_TOKEN}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    }).then(res => {
+                        if (!res.ok) {
+                            return res.json().then(err => {
+                                throw new Error(err.message || 'Error en la subida');
+                            });
+                        }
+                        return res.json();
+                    }).then(data => {
+                        // Construir URL raw
+                        const rawUrl =
+                            `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${pathCompleto}`;
+                        pdfUploadStatus.textContent = '✅ PDF subido a GitHub';
+                        pdfUploadStatus.className = 'pdf-upload-status success';
+                        return rawUrl;
+                    });
+                }).catch(err => {
+                    pdfUploadStatus.textContent = '❌ Error: ' + err.message;
+                    pdfUploadStatus.className = 'pdf-upload-status error';
+                    throw err;
+                });
+            }
+
+            // ===== PAGINACIÓN =====
+            function obtenerPaginaActual() {
+                const total = gastos.length;
+                const totalPaginas = Math.max(1, Math.ceil(total / registrosPorPagina));
+                if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+                if (paginaActual < 1) paginaActual = 1;
+                return paginaActual;
+            }
+
+            function obtenerRegistrosPaginados() {
+                const total = gastos.length;
+                const totalPaginas = Math.max(1, Math.ceil(total / registrosPorPagina));
+                const pagina = obtenerPaginaActual();
+                const inicio = (pagina - 1) * registrosPorPagina;
+                const fin = Math.min(inicio + registrosPorPagina, total);
+                const ordenados = [...gastos].sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
+                return {
+                    registros: ordenados.slice(inicio, fin),
+                    total: total,
+                    pagina: pagina,
+                    totalPaginas: totalPaginas,
+                    inicio: inicio + 1,
+                    fin: fin
+                };
+            }
+
+            function renderizarPaginacion() {
+                const total = gastos.length;
+                if (total === 0) {
+                    paginationContainer.classList.add('hidden');
+                    return;
+                }
+                paginationContainer.classList.remove('hidden');
+
+                const { pagina, totalPaginas, inicio, fin } = obtenerRegistrosPaginados();
+                registroDesde.textContent = total === 0 ? 0 : inicio;
+                registroHasta.textContent = total === 0 ? 0 : fin;
+                totalRegistrosPaginados.textContent = total;
+
+                let html = '';
+                html +=
+                    `<button class="btn btn-sm" data-pagina="prev" ${pagina <= 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
+
+                const rango = 2;
+                let inicioRango = Math.max(1, pagina - rango);
+                let finRango = Math.min(totalPaginas, pagina + rango);
+                if (finRango - inicioRango < 4) {
+                    if (inicioRango === 1) finRango = Math.min(totalPaginas, inicioRango + 4);
+                    else if (finRango === totalPaginas) inicioRango = Math.max(1, finRango - 4);
+                }
+                for (let i = inicioRango; i <= finRango; i++) {
+                    const active = i === pagina ? 'active-page' : '';
+                    html += `<button class="btn btn-sm ${active}" data-pagina="${i}">${i}</button>`;
+                }
+
+                html +=
+                    `<button class="btn btn-sm" data-pagina="next" ${pagina >= totalPaginas ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
+
+                paginacionControles.innerHTML = html;
+
+                paginacionControles.querySelectorAll('button[data-pagina]').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const target = this.dataset.pagina;
+                        let nuevaPagina = pagina;
+                        if (target === 'prev') nuevaPagina = Math.max(1, pagina - 1);
+                        else if (target === 'next') nuevaPagina = Math.min(totalPaginas, pagina + 1);
+                        else nuevaPagina = parseInt(target, 10);
+                        if (nuevaPagina !== pagina) {
+                            paginaActual = nuevaPagina;
+                            renderizarTabla();
+                            renderizarPaginacion();
+                        }
+                    });
+                });
+            }
+
+            // ===== RENDER =====
+            function renderizarTodo() {
+                renderizarResumen();
+                renderizarTabla();
+                renderizarPaginacion();
+                renderizarAjusteInfo();
+                guardarDatos();
+            }
+
+            function renderizarResumen() {
+                const total = gastos.reduce((sum, g) => sum + parseMonto(g.monto), 0);
+                const saldo = montoInicial - total;
+
+                montoInicialDisplay.textContent = formatearMoneda(montoInicial);
+                totalGastadoDisplay.textContent = formatearMoneda(total);
+                saldoDisplay.textContent = formatearMoneda(saldo);
+
+                saldoDisplay.className = 'value';
+                if (Math.abs(saldo) < 0.01) {
+                    saldoDisplay.classList.add('neutral');
+                    estadoAjuste.textContent = '✅ Caja ajustada a cero';
+                } else if (saldo > 0) {
+                    saldoDisplay.classList.add('positive');
+                    estadoAjuste.textContent = `💰 Saldo disponible: ${formatearMoneda(saldo)}`;
+                } else {
+                    saldoDisplay.classList.add('negative');
+                    estadoAjuste.textContent = `⚠️ Excedido en ${formatearMoneda(Math.abs(saldo))}`;
+                }
+
+                gastosCount.textContent = `${gastos.length} comprobante${gastos.length !== 1 ? 's' : ''}`;
+                totalRegistros.textContent = gastos.length;
+            }
+
+            function renderizarTabla() {
+                if (gastos.length === 0) {
+                    tbody.innerHTML = '';
+                    emptyState.style.display = 'block';
+                    paginationContainer.classList.add('hidden');
+                    return;
+                }
+                emptyState.style.display = 'none';
+
+                const { registros } = obtenerRegistrosPaginados();
+                let html = '';
+                registros.forEach(g => {
+                    const monto = parseMonto(g.monto);
+                    const pdfUrl = g.pdfUrl || '';
+                    const pdfHtml = pdfUrl ?
+                        `<a href="${escapeHtml(pdfUrl)}" target="_blank" class="btn-icon pdf-btn" title="Ver PDF"><i class="fas fa-file-pdf"></i></a>` :
+                        '<span class="text-muted">—</span>';
+                    html += `
+                        <tr>
+                            <td data-label="Fecha">${formatearFecha(g.fecha)}</td>
+                            <td data-label="Proveedor">${escapeHtml(g.proveedor)}</td>
+                            <td data-label="Concepto">${escapeHtml(g.concepto)}</td>
+                            <td data-label="Monto">${formatearMoneda(monto)}</td>
+                            <td data-label="Comprobante">${g.tipo || 'B'} ${g.numero ? '· ' + escapeHtml(g.numero) : ''}</td>
+                            <td data-label="PDF">${pdfHtml}</td>
+                            <td data-label="Acciones" class="actions-cell">
+                                <button class="btn-icon" data-editar="${g.id}" title="Editar"><i class="fas fa-pen"></i></button>
+                                <button class="btn-icon danger" data-eliminar="${g.id}" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+
+                // eventos
+                tbody.querySelectorAll('[data-eliminar]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = btn.dataset.eliminar;
+                        abrirModalConfirmacion('Eliminar gasto', '¿Deseas eliminar este gasto? Esta acción no se puede deshacer.', () => {
+                            eliminarGasto(id);
+                        });
+                    });
+                });
+
+                tbody.querySelectorAll('[data-editar]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = btn.dataset.editar;
+                        cargarGastoParaEditar(id);
+                    });
+                });
+            }
+
+            function renderizarAjusteInfo() {
+                const total = gastos.reduce((sum, g) => sum + parseMonto(g.monto), 0);
+                const saldo = montoInicial - total;
+                const diff = Math.abs(saldo);
+
+                if (gastos.length === 0) {
+                    ajusteInfo.classList.add('hidden');
+                    return;
+                }
+
+                ajusteInfo.classList.remove('hidden');
+                if (Math.abs(saldo) < 0.01) {
+                    estadoTexto.className = 'estado ok';
+                    estadoTexto.innerHTML = '✅ Caja ajustada a cero';
+                    detalleAjuste.textContent = `El total gastado (${formatearMoneda(total)}) coincide con el monto inicial (${formatearMoneda(montoInicial)}).`;
+                } else if (saldo > 0) {
+                    estadoTexto.className = 'estado falta';
+                    estadoTexto.innerHTML = `⏳ Faltan gastar ${formatearMoneda(diff)}`;
+                    detalleAjuste.textContent = `Saldo disponible: ${formatearMoneda(saldo)}. Asegúrate de consumir el total o realizar una reposición.`;
+                } else {
+                    estadoTexto.className = 'estado sobra';
+                    estadoTexto.innerHTML = `⚠️ Excedido en ${formatearMoneda(diff)}`;
+                    detalleAjuste.textContent = `Se ha gastado más del monto inicial. Revisa los comprobantes o solicita ajuste.`;
+                }
+            }
+
+            // ===== CRUD =====
+            function eliminarGasto(id) {
+                gastos = gastos.filter(g => g.id !== id);
+                const totalPaginas = Math.max(1, Math.ceil(gastos.length / registrosPorPagina));
+                if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+                renderizarTodo();
+                if (editandoId === id) {
+                    editandoId = null;
+                    btnGuardar.innerHTML = '<i class="fas fa-save"></i> Guardar gasto';
+                    form.reset();
+                    inputFecha.value = new Date().toISOString().split('T')[0];
+                    inputPdfUrl.value = '';
+                    pdfUploadStatus.textContent = '';
+                    pdfUploadStatus.className = 'pdf-upload-status';
+                }
+            }
+
+            function eliminarTodos() {
+                if (gastos.length === 0) return;
+                abrirModalConfirmacion('Vaciar todos los gastos', 'Esta acción eliminará todos los movimientos registrados. ¿Continuar?', () => {
+                    gastos = [];
+                    editandoId = null;
+                    btnGuardar.innerHTML = '<i class="fas fa-save"></i> Guardar gasto';
+                    form.reset();
+                    inputFecha.value = new Date().toISOString().split('T')[0];
+                    inputPdfUrl.value = '';
+                    pdfUploadStatus.textContent = '';
+                    pdfUploadStatus.className = 'pdf-upload-status';
+                    paginaActual = 1;
+                    renderizarTodo();
+                });
+            }
+
+            function cargarGastoParaEditar(id) {
+                const gasto = gastos.find(g => g.id === id);
+                if (!gasto) return;
+                editandoId = id;
+                inputFecha.value = gasto.fecha || '';
+                inputProveedor.value = gasto.proveedor || '';
+                inputConcepto.value = gasto.concepto || '';
+                inputMonto.value = gasto.monto || '';
+                inputTipo.value = gasto.tipo || 'B';
+                inputNumero.value = gasto.numero || '';
+                inputObservaciones.value = gasto.observaciones || '';
+                inputPdfUrl.value = gasto.pdfUrl || '';
+                pdfUploadStatus.textContent = gasto.pdfUrl ? '✅ PDF ya subido' : '';
+                pdfUploadStatus.className = gasto.pdfUrl ? 'pdf-upload-status success' : 'pdf-upload-status';
+                btnGuardar.innerHTML = '<i class="fas fa-pen"></i> Actualizar';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function guardarGastoDesdeFormulario() {
+                const fecha = inputFecha.value;
+                const proveedor = inputProveedor.value.trim();
+                const concepto = inputConcepto.value.trim();
+                const monto = parseMonto(inputMonto.value);
+                const tipo = inputTipo.value;
+                const numero = inputNumero.value.trim();
+                const observaciones = inputObservaciones.value.trim();
+                const pdfUrl = inputPdfUrl.value.trim();
+
+                if (!fecha || !proveedor || !concepto || !monto || monto <= 0) {
+                    alert('Por favor, completa todos los campos obligatorios (fecha, proveedor, concepto, monto > 0).');
+                    return;
+                }
+
+                // Restricciones del instructivo
+                const conceptosProhibidos = ['agua', 'luz', 'teléfono', 'peaje', 'combustible', 'alimento', 'café', 'té', 'azúcar',
+                    'yerba', 'leche', 'decorativa', 'publicación'
+                ];
+                const conceptoLower = concepto.toLowerCase();
+                const encontrado = conceptosProhibidos.some(pal => conceptoLower.includes(pal));
+                if (encontrado) {
+                    const confirmar = confirm('⚠️ El concepto ingresado podría estar restringido según el instructivo (ej. servicios públicos, alimentos, combustibles, decoración, etc.). ¿Deseas continuar de todas formas?');
+                    if (!confirmar) return;
+                }
+
+                if (monto >= 250000) {
+                    alert('📌 Monto ≥ $250.000: recuerda adjuntar el Form. SR-322 (Constancia de cumplimiento fiscal) con pago a cuenta.');
+                } else if (monto >= 30000) {
+                    alert('📌 Monto ≥ $30.000: recuerda adjuntar el Form. SR-344 (Certificado Fiscal para Contratar).');
+                }
+                if (monto >= 2000) {
+                    alert('📌 Monto ≥ $2.000: adjuntar constancia de inscripción AFIP.');
+                }
+
+                if (editandoId) {
+                    const idx = gastos.findIndex(g => g.id === editandoId);
+                    if (idx !== -1) {
+                        gastos[idx] = {
+                            ...gastos[idx],
+                            fecha,
+                            proveedor,
+                            concepto,
+                            monto,
+                            tipo,
+                            numero,
+                            observaciones,
+                            pdfUrl
+                        };
+                    }
+                    editandoId = null;
+                    btnGuardar.innerHTML = '<i class="fas fa-save"></i> Guardar gasto';
+                } else {
+                    const nuevo = {
+                        id: generarId(),
+                        fecha,
+                        proveedor,
+                        concepto,
+                        monto,
+                        tipo,
+                        numero,
+                        observaciones,
+                        pdfUrl
+                    };
+                    gastos.push(nuevo);
+                }
+
+                form.reset();
+                inputFecha.value = new Date().toISOString().split('T')[0];
+                inputPdfUrl.value = '';
+                pdfUploadStatus.textContent = '';
+                pdfUploadStatus.className = 'pdf-upload-status';
+                const totalPaginas = Math.max(1, Math.ceil(gastos.length / registrosPorPagina));
+                paginaActual = totalPaginas;
+                renderizarTodo();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // ===== IMPRESIÓN =====
+            function mostrarVistaImpresion() {
+                if (gastos.length === 0) {
+                    alert('No hay registros para imprimir.');
+                    return;
+                }
+
+                const ordenados = [...gastos].sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
+
+                let html = `
+                    <div class="print-header">
+                        <h1>Caja Chica - Defensoría Oficial Civil y Comercial N°6</h1>
+                        <p>Ministerio Público de Misiones</p>
+                        <p>Fecha de impresión: ${obtenerFechaHoraActual()}</p>
+                        <p>Total de registros: ${ordenados.length}</p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Proveedor</th>
+                                <th>Concepto</th>
+                                <th>Monto</th>
+                                <th>Comprobante</th>
+                                <th>PDF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                ordenados.forEach(g => {
+                    const monto = parseMonto(g.monto);
+                    const pdfUrl = g.pdfUrl || '';
+                    const pdfCell = pdfUrl ? 'Sí' : '—';
+                    html += `
+                        <tr>
+                            <td>${formatearFecha(g.fecha)}</td>
+                            <td>${escapeHtml(g.proveedor)}</td>
+                            <td>${escapeHtml(g.concepto)}</td>
+                            <td>${formatearMoneda(monto)}</td>
+                            <td>${g.tipo || 'B'} ${g.numero ? '· ' + escapeHtml(g.numero) : ''}</td>
+                            <td>${pdfCell}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                        </tbody>
+                    </table>
+                    <div class="print-footer">
+                        Este documento es una impresión del sistema de Caja Chica.
+                    </div>
+                `;
+
+                printContent.innerHTML = html;
+                printArea.style.display = 'flex';
+
+                setTimeout(() => {
+                    window.print();
+                }, 300);
+            }
+
+            function cerrarVistaImpresion() {
+                printArea.style.display = 'none';
+                printContent.innerHTML = '';
+            }
+
+            // ===== MODALES =====
+            let confirmCallback = null;
+
+            function abrirModalConfirmacion(titulo, mensaje, callback) {
+                modalTitulo.textContent = titulo;
+                modalMensaje.textContent = mensaje;
+                confirmCallback = callback;
+                modalConfirmacion.classList.add('open');
+            }
+
+            function cerrarModalConfirmacion() {
+                modalConfirmacion.classList.remove('open');
+                confirmCallback = null;
+            }
+
+            modalCancelar.addEventListener('click', cerrarModalConfirmacion);
+            modalConfirmar.addEventListener('click', () => {
+                if (confirmCallback) {
+                    confirmCallback();
+                }
+                cerrarModalConfirmacion();
+            });
+
+            modalConfirmacion.addEventListener('click', (e) => {
+                if (e.target === modalConfirmacion) cerrarModalConfirmacion();
+            });
+
+            // Configurar monto
+            btnConfigMonto.addEventListener('click', () => {
+                inputMontoInicial.value = montoInicial;
+                modalConfigMonto.classList.add('open');
+            });
+
+            btnCancelarMonto.addEventListener('click', () => {
+                modalConfigMonto.classList.remove('open');
+            });
+
+            btnGuardarMonto.addEventListener('click', () => {
+                const nuevo = parseMonto(inputMontoInicial.value);
+                if (nuevo < 0) {
+                    alert('El monto debe ser mayor o igual a 0.');
+                    return;
+                }
+                montoInicial = nuevo;
+                modalConfigMonto.classList.remove('open');
+                renderizarTodo();
+            });
+
+            modalConfigMonto.addEventListener('click', (e) => {
+                if (e.target === modalConfigMonto) modalConfigMonto.classList.remove('open');
+            });
+
+            // Modal de ajuste
+            btnAjustarCaja.addEventListener('click', () => {
+                const total = gastos.reduce((sum, g) => sum + parseMonto(g.monto), 0);
+                const saldo = montoInicial - total;
+                ajusteInicial.textContent = formatearMoneda(montoInicial);
+                ajusteGastado.textContent = formatearMoneda(total);
+                ajusteDiferencia.textContent = formatearMoneda(saldo);
+
+                let msg = '';
+                if (Math.abs(saldo) < 0.01) {
+                    msg = '✅ La caja está perfectamente ajustada. El total de gastos coincide con el monto inicial.';
+                } else if (saldo > 0) {
+                    msg =
+                        `⏳ Quedan ${formatearMoneda(saldo)} por gastar. Puedes solicitar reposición solo si has utilizado al menos el 70% del monto inicial (${formatearMoneda(montoInicial * 0.7)}).`;
+                } else {
+                    msg =
+                        `⚠️ Has gastado ${formatearMoneda(Math.abs(saldo))} por encima del monto inicial. Revisa los comprobantes o realiza los ajustes necesarios.`;
+                }
+                mensajeAjuste.innerHTML = msg;
+                modalAjuste.classList.add('open');
+            });
+
+            btnCerrarAjuste.addEventListener('click', () => {
+                modalAjuste.classList.remove('open');
+            });
+
+            modalAjuste.addEventListener('click', (e) => {
+                if (e.target === modalAjuste) modalAjuste.classList.remove('open');
+            });
+
+            // ===== EVENTOS =====
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                guardarGastoDesdeFormulario();
+            });
+
+            btnEliminarTodos.addEventListener('click', eliminarTodos);
+
+            btnImprimirTabla.addEventListener('click', mostrarVistaImpresion);
+
+            btnCerrarPrint.addEventListener('click', cerrarVistaImpresion);
+
+            // Subida de PDF a GitHub
+            inputPdfFile.addEventListener('change', function(e) {
+                const file = this.files[0];
+                if (!file) {
+                    inputPdfUrl.value = '';
+                    pdfUploadStatus.textContent = '';
+                    pdfUploadStatus.className = 'pdf-upload-status';
+                    return;
+                }
+                if (file.type !== 'application/pdf') {
+                    alert('Solo se permiten archivos PDF.');
+                    this.value = '';
+                    return;
+                }
+                subirPDFaGitHub(file)
+                    .then(url => {
+                        inputPdfUrl.value = url;
+                    })
+                    .catch(err => {
+                        inputPdfUrl.value = '';
+                    });
+            });
+
+            // Cargar fecha actual por defecto
+            inputFecha.value = new Date().toISOString().split('T')[0];
+
+            // ===== INICIALIZAR =====
+            cargarDatos();
+
+            form.addEventListener('reset', () => {
+                editandoId = null;
+                btnGuardar.innerHTML = '<i class="fas fa-save"></i> Guardar gasto';
+                inputFecha.value = new Date().toISOString().split('T')[0];
+                inputPdfUrl.value = '';
+                pdfUploadStatus.textContent = '';
+                pdfUploadStatus.className = 'pdf-upload-status';
+            });
+
+            console.log('Caja Chica App · Defensoría Oficial Civil y Comercial 6 · Misiones');
+            console.log('Instructivo 2026 · Subida de PDFs a GitHub · Impresión profesional.');
+
+        })();
+    </script>
+
+</body>
+</html>
